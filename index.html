@@ -1,64 +1,124 @@
 <!DOCTYPE html> 
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="index.css" />
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js" integrity="sha512-yNJzAsg5JyP91u+sLHlUDULMBd3hmEiVkYeeN1cQBKaLZ7EyT6oH2u5THNIRM2Fu6VKcZJv+F/QAp1h/qzy9Ow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/loaders/GLTFLoader.js" ></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <title>
+            3d space
+        </title>
     </head>
+
     <body>
-        <script type="module">
-        import * as THREE from 'https://cdn.skypack.dev/three@0.133.1';
-
-let scene, camera, renderer,starGeo,stars
-
-            function init() {
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(60,window.innerWidth / window.innerHeight,1,1000);
-            camera.position.z = 1;
-            camera.rotation.x = Math.PI/2;
-            
-            renderer = new THREE.WebGLRenderer();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            document.body.appendChild(renderer.domElement);
-            
-            starGeo = new THREE.Geometry();
-            for(let i=0;i<6000;i++) {
-                let star = new THREE.Vector3(
-                Math.random() * 600 - 300,
-                Math.random() * 600 - 300,
-                Math.random() * 600 - 300
-            );
-            star.velocity = 0;
-            star.acceleration = 0.02;
-            starGeo.vertices.push(star);
+        <h1>3D Space Wrap</h1>
+        <h2>THREE.js</h2>
+        <style>
+            *{
+                margin:0;
+                padding:0;
+                box-sizing: border-box;
             }
+            h1{
+                position:absolute;
+                left:50%;
+                top:30%;
+                transform: translate(-50%,-50%);
+                color:#fff;
+                font-family: sans-serif;
+                font-weight:900;
+                font-size:68px;
 
-            let sprite = new THREE.TextureLoader().load('https://ik.imagekit.io/ufuxna3870p/NicePng_white-star-icon-png_3342060_l4Fr7O2xN.png?updatedAt=1634843636708');
-            let starMaterial = new THREE.PointsMaterial({
-                color:0xaaaaaa,
-                size:0.7,
-                map: sprite
-            });
-            
-            stars = new THREE.Points(starGeo, starMaterial );
-            animate();
             }
+            h2{
+                position: absolute;
+                left:50%;
+                top:50%;
+                transform: translate(-50%,-50%);
+                color:#fff;
+                font-family: sans-serif;
+                font-weight:900;
+                color:#333;
+                padding:10px 20px;
+                font-size:48px;
 
-            function animate() {
-                starGeo.vertices.forEach(p=>{
-                    p.velocity +=p.acceleration;
-                    p.y -= p.velocity;
-                    if(p.y <-200){
-                        p.y = 200;
-                        p.velocity=0;
-                    }
+
+            }
+            canvas {
+                width: 100% !important;
+                height: 100% !important;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: -1;
+                }
+        </style>
+            <script>
+
+                let scene;
+                let camera;
+                let renderer;
+                let starGeometry;
+                let stars;
+
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(60,window.innerWidth / window.innerHeight,1,1000);
+                camera.position.z = 10;
+                camera.position.x = Math.PI/2;
+                
+                renderer = new THREE.WebGLRenderer();
+                renderer.setSize(window.innerWidth,window.innerHeight);
+                document.body.appendChild(renderer.domElement);
+                
+                starGeometry = new THREE.Geometry();
+                for(let i=0; i<6000; i++){
+                    star = new THREE.Vector3(
+                        Math.random() * 600 - 300,
+                        Math.random() * 600 - 300,
+                        Math.random() * 600 - 300
+                    );
+                    star.velocity = 0;
+                    star.acceleration = 0.02;
+                    starGeometry.vertices.push(star)
+
+                };
+
+                let sprite  = new THREE.TextureLoader().load('https://ik.imagekit.io/ufuxna3870p/NicePng_white-star-icon-png_3342060_l4Fr7O2xN.png?updatedAt=1634843636708');
+                let starMaterial = new THREE.PointsMaterial({
+                    color: 0xaaaaaa,
+                    size: 0.7,
+                    map: sprite
                 });
-                starGeo.verticesNeedUpdate = true;
-                stars.rotation.y += 0.002;
-                renderer.render(scene, camera);
-                requestAnimationFrame(animate);
 
-            }
-            init(); 
-</script>
+                stars = new THREE.Points(starGeometry, starMaterial);
+                scene.add(stars);
+
+
+                
+                
+                animate();
+
+                function animate(){
+                    starGeometry.vertices.forEach(p=>{
+                        p.velocity += p.acceleration;
+                        p.y -= p.velocity;
+                        if(p.y < -200){
+                            p.y = 200;
+                            p.velocity = 0
+                        }
+                    });
+                     starGeometry.verticesNeedUpdate = true
+                     stars.rotation.y += 0.002;
+                     stars.rotation.x = -1.5;
+                     renderer.render(scene,camera);
+                    requestAnimationFrame(animate);
+
+                }
+
+
+            </script>
     </body>
    
     </html>
