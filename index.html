@@ -7,54 +7,64 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js" integrity="sha512-yNJzAsg5JyP91u+sLHlUDULMBd3hmEiVkYeeN1cQBKaLZ7EyT6oH2u5THNIRM2Fu6VKcZJv+F/QAp1h/qzy9Ow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/loaders/GLTFLoader.js" ></script>
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-        <title>
+            <title>
             3d space
         </title>
+          
+
+<style>
+  
+  *{
+      margin:0;
+      padding:0;
+      box-sizing: border-box;
+      
+
+  }
+  body {
+      overflow: hidden;
+      background-color: #111;
+      }
+  button{
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform: translate(-50%,-50%);
+      color:#fff;
+      font-family: sans-serif;
+      font-weight:900;
+
+  }
+  h2{
+      position: absolute;
+      left:50%;
+      top:50%;
+      transform: translate(-50%,-50%);
+      color:#fff;
+      font-family: sans-serif;
+      font-weight:900;
+      color:#333;
+      padding:10px 20px;
+      font-size:48px;
+
+
+  }
+  canvas {
+      width: 100% !important;
+      height: 100% !important;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      }
+</style>  
     </head>
 
+
     <body>
-        <h1>3D Space Wrap</h1>
-        <h2>THREE.js</h2>
-        <style>
-            *{
-                margin:0;
-                padding:0;
-                box-sizing: border-box;
-            }
-            h1{
-                position:absolute;
-                left:50%;
-                top:30%;
-                transform: translate(-50%,-50%);
-                color:#fff;
-                font-family: sans-serif;
-                font-weight:900;
-                font-size:68px;
-
-            }
-            h2{
-                position: absolute;
-                left:50%;
-                top:50%;
-                transform: translate(-50%,-50%);
-                color:#fff;
-                font-family: sans-serif;
-                font-weight:900;
-                color:#333;
-                padding:10px 20px;
-                font-size:48px;
-
-
-            }
-            canvas {
-                width: 100% !important;
-                height: 100% !important;
-                position: absolute;
-                top: 0;
-                left: 0;
-                z-index: -1;
-                }
-        </style>
+        <button id="letsgo" >Let's Go</button>
+        <div id='holder'></div>      
+        
             <script>
 
                 let scene;
@@ -73,14 +83,14 @@
                 document.body.appendChild(renderer.domElement);
                 
                 starGeometry = new THREE.Geometry();
-                for(let i=0; i<6000; i++){
+                for(let i=0; i<10000; i++){
                     star = new THREE.Vector3(
                         Math.random() * 600 - 300,
                         Math.random() * 600 - 300,
                         Math.random() * 600 - 300
                     );
                     star.velocity = 0;
-                    star.acceleration = 0.02;
+                    star.acceleration = 0.01;
                     starGeometry.vertices.push(star)
 
                 };
@@ -95,11 +105,21 @@
                 stars = new THREE.Points(starGeometry, starMaterial);
                 scene.add(stars);
 
-
+             
                 
                 
                 animate();
+                var btn  = document.getElementById('letsgo');
+                btn.onclick = function(){
+                    setTimeout(function(){  
+                        star.acceleration *= 1000; 
+                        animate(); 
+                        animate(); 
+                     
 
+                    }, 1000);
+                    
+                }
                 function animate(){
                     starGeometry.vertices.forEach(p=>{
                         p.velocity += p.acceleration;
