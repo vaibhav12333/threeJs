@@ -18,7 +18,7 @@
       margin:0;
       padding:0;
       box-sizing: border-box;
-      
+      cursor: url("https://cur.cursors-4u.net/mechanics/mec-4/mec331.cur"), auto !important;
 
   }
   body {
@@ -225,8 +225,10 @@
                 var btn  = document.getElementById('letsgo');
                 btn.onclick = function(){
                    
-                        star.acceleration = 0.1; 
-                        for(let i=0; i<9; i++){
+                    star.acceleration = 9.0; 
+
+                    for(let i=0; i<11; i++){
+
                             animate();
                         }
                       
