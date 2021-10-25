@@ -76,7 +76,6 @@
     line-height: 0.70em;
     outline:none;
     display:none;
-    animation: animate 5s linear;
   }
   @keyframes animate {
       0%,18%,20%,50.1%,60%,65.1%,80%,90.1%,92%
@@ -98,6 +97,10 @@
   .head{
     animation-name: headexpand;
   animation-duration: 2s;
+  }
+  .headexpand{
+    animation-name: headexpaaand;
+  animation-duration: 3s;
   }
   a{
       margin-top:10px;
@@ -205,6 +208,44 @@
             display:none;
         }
     }
+    @keyframes headexpaaand{
+        0%{
+            font-size:20px;
+        }
+        10%{
+            font-size:30px;
+        }
+        20%{
+            font-size:40px;
+        }
+        30%{
+            font-size:50px;
+        }
+        40%{
+            font-size:60px;
+        }
+        50%{
+            font-size:70px;
+        }
+        60%{
+            font-size:80px;
+        }
+      
+        70%{
+            font-size:90px;
+
+        }
+        80%{
+            font-size:100px;
+        }
+       
+        90%{
+            font-size:120px;
+        }
+        100%{
+            font-size: 110px;
+        }
+    }
 </style>  
     </head>
 
@@ -212,7 +253,7 @@
     <body>
 
         <div class="text-box">
-        <h1 id="heading-main">EXPAAND</h1>
+        <h1 id="heading-main">EXPAAAND</h1>
         <h2 id="heading1">to infinity and beyond</h2>
         <a id="letsgo" >
             <span></span>
@@ -267,14 +308,18 @@
                 animate();
                 var btn  = document.getElementById('letsgo');
                 btn.onclick = function(){
-                   
-                    star.acceleration = 9.0; 
+                    
+                     
+                    starGeometry.vertices.forEach(p=>{
+                        p.acceleration = 0.8
+                    }) 
+                    setTimeout(function(){
+                        starGeometry.vertices.forEach(p=>{
+                        p.acceleration = 0.00008;
+                        p.velocity=0;
+                    })
 
-                    for(let i=0; i<11; i++){
-
-                            animate();
-                        }
-                      
+                    },7000)
                      var head = document.getElementById("heading1")   
                      var head1 = document.getElementById("heading-main")
                      head.classList.remove('head');
@@ -286,11 +331,18 @@
                         btn.style.display = "none"
                         setTimeout(function(){
                             head1.style.display = "block"
-                        head1.classList.add('head')
-                        },900)
-                        
-                        
+                            setTimeout(function(){
+                                head1.style.animation= "animate 2s linear"
+
+                            },5000)
+                           
+                            head1.classList.add('headexpand')
+
+                        },3000)
                      },1000)
+                     for(let i=0;i<10;i++){
+                        animate();
+                    }
                     }
                     
                 
@@ -310,6 +362,9 @@
                     requestAnimationFrame(animate);
 
                 }
+              
+
+
 
 
             </script>
