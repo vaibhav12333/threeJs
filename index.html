@@ -189,6 +189,44 @@
       left: 0;
       z-index: -1;
       }
+     @keyframes headexpaaand{
+        0%{
+            font-size:20px;
+        }
+        10%{
+            font-size:30px;
+        }
+        20%{
+            font-size:40px;
+        }
+        30%{
+            font-size:50px;
+        }
+        40%{
+            font-size:60px;
+        }
+        50%{
+            font-size:70px;
+        }
+        60%{
+            font-size:80px;
+        }
+      
+        70%{
+            font-size:90px;
+
+        }
+        80%{
+            font-size:100px;
+        }
+       
+        90%{
+            font-size:120px;
+        }
+        100%{
+            font-size: 110px;
+        }
+    }
     @keyframes headexpand{
         0%{
             font-size:48px;
@@ -212,7 +250,7 @@
     <body>
 
         <div class="text-box">
-        <h1 id="heading-main">EXPAAND</h1>
+        <h1 id="heading-main">EXPAAAND</h1>
         <h2 id="heading1">to infinity and beyond</h2>
         <a id="letsgo" >
             <span></span>
@@ -286,7 +324,7 @@
                         btn.style.display = "none"
                         setTimeout(function(){
                             head1.style.display = "block"
-                        head1.classList.add('head')
+                        head1.style.animation = "headexpaaand 2s linear"
                         },900)
                         
                         
